@@ -1,0 +1,121 @@
+package dsa;
+import java.util.*;
+public class LongeshSubarrayWithSumK {
+//     //Time Complexity : O(n**3) ; Space Complexity :O(1);
+//	public static int brute(int[] arr, int s) {
+//		int n = arr.length;
+//		int maxi = 0;
+//		
+//		for (int startIndex = 0; startIndex< n; startIndex++) {
+//			for (int endIndex = startIndex; endIndex< n; endIndex++) {
+//
+//				int sum = 0;
+//				for (int k = startIndex; k <= endIndex; k++) {
+//					sum += arr[k];
+//
+//				}
+//				if (sum == s) {
+//					maxi = Math.max(maxi,  endIndex- startIndex + 1);
+//				}
+//			
+//
+//			}
+//		}
+//
+//		return maxi;
+//	}
+	
+	
+	
+	
+// //O(n**2)
+//	public static int brute1(int[] arr, int s) {
+//		int n = arr.length;
+//		int maxi = 0;
+//		
+//		for (int startIndex = 0; startIndex< n; startIndex++) {
+//			int sum=0;
+//			for (int endIndex = startIndex; endIndex< n; endIndex++) {
+//
+//				sum += arr[endIndex];
+//			
+//				if (sum == s) {
+//					maxi = Math.max(maxi,  endIndex- startIndex + 1);
+//				}
+//			
+//
+//			}
+//		}
+//
+//		return maxi;
+//	}
+
+//	public static int optimalSlidingWindow(int[] arr, int s) {
+//		int n = arr.length;
+//		int maxi = 0;
+//		int sum = 0;
+//		int start = 0;
+//		for (int end = 0; end < n; end++) {
+//
+//			sum += arr[end];
+//
+//			while (sum > s) {
+//				sum -= arr[start];
+//				start++;
+//			}
+//			if (sum == s) {
+//				maxi = Math.max(maxi, end - start + 1);
+//			}
+//		}
+//
+//		return maxi;
+//	}
+//	
+//      /* The time comlexity is O(2N) because  : for loop =O(n)  but the while loop doesnt run entirely every time, 
+//	  for example if sum is not greater s the while loop wont work so , the while loop runs o(n) combined so  
+//	  the time complexity becomes O(2N)*/
+	
+	
+	
+	//All the above solutions only work for the Positives and 0 inputs not for the negative inputs so we have to use prefix sum
+
+	public static int withNegativesSumZero(int[] a) {
+		
+		HashMap <Long,Integer> presumMap=new HashMap<>();
+		
+		
+		int n=a.length;
+	 long sum=0;
+	int maxi=0;
+	for(int i=0;i<n;i++) {
+		sum+=a[i];
+		// if sum=0 ,max length would be 0 to i but as indexing start from 0 .
+		// for eg. 1234--> INDEXES ARE 0123 THE VALUE OF I =3 BUT NUMBERS ARE 4;
+		if(sum==0) {
+			maxi=i+1;
+		}
+		
+		
+		if(!presumMap.containsKey(sum)) {// if sum is not present in the map 
+			presumMap.put(sum,i);
+		}else if (presumMap.containsKey(sum)){
+			maxi=Math.max(maxi,i-presumMap.get(sum));// ifbsum is present in the map 
+		}
+	} 
+		return maxi;
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		int[] arr = { 10, 5, 2, 7, 1, 9 };
+		int[] a= {9, -3, 3, -1, 6, -5};
+//		System.out.println(brute(arr, 4));
+//		System.out.println(brute1(arr, 15));
+//		System.out.println(optimalSlidingWindow(arr, 15));
+		System.out.println(withNegativesSumZero(a));
+
+}
+}
