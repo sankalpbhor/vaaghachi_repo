@@ -1,0 +1,57 @@
+
+/*711. Capitalize First and Last Character of Each Word
+POTD
+
+Basic
+You are given a string s consisting of one or more words separated by single spaces. Your task is to capitalize the first and last character of each word in the string.
+
+If a word contains only one character, capitalize that character.
+
+Return the transformed string after applying the operation to all words.
+
+Example 1:
+Input: s = "take u forward is awesome"
+
+Output: "TakE U ForwarD IS AwesomE"
+
+Explanation: Each word's first and last characters are capitalized.
+
+Example 2:
+Input: s = "Take u Forward is Awesome"
+
+Output: "TakE U ForwarD IS AwesomE"
+
+Explanation: Already capitalized characters remain, others are capitalized.*/
+
+
+
+
+
+class Solution {
+    public String capitalizeFirstLast(String s) {
+        
+        String ans = " ";
+        char[] arr= s.toCharArray();
+        boolean first = true;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]== ' '){
+                first=true;
+            }else if(first ){
+                arr[i]=Character.toUpperCase(arr[i]);
+                first = false ;
+            }
+
+            if(i==arr.length-1 || arr[i+1]==' '){
+                arr[i]=Character.toUpperCase(arr[i]);
+            }
+
+        }
+        return new String(arr);
+    }
+}
+
+
+
+
+
+
